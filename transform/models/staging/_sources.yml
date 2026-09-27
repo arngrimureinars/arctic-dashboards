@@ -1,0 +1,12 @@
+version: 2
+
+sources:
+  - name: hagstofa
+    description: Statistics Iceland (Hagstofa Íslands), pulled from the PxWeb API by extract/hagstofa.py.
+    meta:
+      external_location: "data/raw/hagstofa/{name}.parquet"
+    tables:
+      - name: cpi
+        description: "VIS01000 – Consumer price index (1988=100) and its monthly/annual changes, for the CPI and the CPI excluding housing."
+      - name: cpi_subindices
+        description: "VIS01300 – CPI sub-indices by COICOP category: index, weight, monthly change and effect on the total index."

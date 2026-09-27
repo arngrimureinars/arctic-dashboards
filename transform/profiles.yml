@@ -1,0 +1,8 @@
+arctic:
+  target: dev
+  outputs:
+    dev:
+      type: duckdb
+      # Relative to where dbt is run (the repo root, via the Makefile).
+      path: "{{ env_var('WAREHOUSE_PATH', 'data/warehouse.duckdb') }}"
+      threads: 4

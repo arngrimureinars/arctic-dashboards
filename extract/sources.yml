@@ -1,0 +1,16 @@
+# Data sources pulled into the raw zone (data/raw/). Each table lands as-is, one
+# Parquet file per table; cleaning and renaming happens in dbt (transform/).
+
+hagstofa:
+  base_url: https://px.hagstofa.is/pxis/api/v1/is
+  tables:
+    - name: cpi
+      path: Efnahagur/visitolur/1_vnv/1_vnv/VIS01000.px
+      description: Vísitala neysluverðs og breytingar, grunnur 1988=100 (monthly since 1988)
+      # Optional filters per dimension code; dimensions not listed are fetched in full.
+      query:
+        Liður: [index, change_M, change_A]
+
+    - name: cpi_subindices
+      path: Efnahagur/visitolur/1_vnv/2_undirvisitolur/VIS01300.px
+      description: Undirvísitölur neysluverðs – vægi, mánaðarbreyting og áhrif (last ~20 months)

@@ -1,0 +1,33 @@
+version: 2
+
+models:
+  - name: fct_cpi_monthly
+    description: Monthly consumer price index since 1988 – level (1988=100), month-on-month and year-on-year change – for the CPI and the CPI excluding housing. Feeds the inflation dashboard.
+    columns:
+      - name: id
+        tests: [unique, not_null]
+      - name: month
+        tests: [not_null]
+      - name: index_value
+        description: Index level, May 1988 = 100.
+        tests: [not_null]
+      - name: change_yoy_pct
+        description: Year-on-year change in %, i.e. inflation. Missing for the first 12 months of the series.
+        tests:
+          - within_range:
+              arguments:
+                min_value: -20
+                max_value: 100
+
+  - name: fct_cpi_category_effects
+    description: Top-level COICOP groups (food, housing, transport, ...) with basket weight, monthly change and contribution to the total monthly CPI change.
+    columns:
+      - name: id
+        tests: [unique, not_null]
+      - name: weight_pct
+        description: Share of the household basket, in %.
+      - name: effect_pct_points
+        description: Contribution to the total monthly change, in percentage points.
+
+  - name: data_freshness
+    description: Last source update (Hagstofa) and last pipeline load per dataset, shown as "last updated" on dashboards.

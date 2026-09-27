@@ -1,0 +1,42 @@
+# Arctic Analytics theme: glacier blue, aurora teal and ice tones (matches the website).
+appearance:
+  default: system
+  switcher: true
+
+theme:
+  colorPalettes:
+    default:
+      light: ["#0e5a8a", "#14b8a6", "#7cc4ef", "#8b5cf6", "#f59e0b", "#ec4899", "#0f766e", "#64748b", "#22c55e", "#a5dcff"]
+      dark: ["#7cc4ef", "#5eead4", "#a5dcff", "#c4b5fd", "#fcd34d", "#f9a8d4", "#2dd4bf", "#94a3b8", "#86efac", "#38bdf8"]
+  colorScales:
+    default:
+      light: ["#e0f2fe", "#0e5a8a"]
+      dark: ["#0f1e2d", "#7cc4ef"]
+  colors:
+    primary:
+      light: "#0e5a8a"
+      dark: "#7cc4ef"
+    accent:
+      light: "#0d9488"
+      dark: "#5eead4"
+    base:
+      light: "#ffffff"
+      dark: "#0b1622"
+    info:
+      light: "#0284c7"
+      dark: "#38bdf8"
+    positive:
+      light: "#0d9488"
+      dark: "#5eead4"
+    warning:
+      light: "#d97706"
+      dark: "#fbbf24"
+    negative:
+      light: "#dc2626"
+      dark: "#f87171"
+
+plugins:
+  components:
+    "@evidence-dev/core-components": {}
+  datasources:
+    "@evidence-dev/duckdb": {}

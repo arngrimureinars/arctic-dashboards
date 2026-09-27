@@ -1,0 +1,28 @@
+version: 2
+
+models:
+  - name: stg_hagstofa__cpi
+    description: CPI in long format, one row per month, index and measure. Month codes like 2026M08 are parsed to dates.
+    columns:
+      - name: month
+        tests: [not_null]
+      - name: index_code
+        description: "CPI = consumer price index, CPILH = CPI excluding housing."
+        tests:
+          - accepted_values:
+              arguments:
+                values: [CPI, CPILH]
+      - name: measure
+        description: "index, change_M (month-on-month %) or change_A (year-on-year %)."
+      - name: value
+        tests: [not_null]
+
+  - name: stg_hagstofa__cpi_subindices
+    description: CPI sub-indices in long format, one row per month, COICOP category and measure.
+    columns:
+      - name: month
+        tests: [not_null]
+      - name: category_code
+        tests: [not_null]
+      - name: category_level
+        description: "0 = total CPI, 1 = top-level COICOP group (01–13), 2+ = sub-groups."

@@ -1,0 +1,53 @@
+name: Refresh dashboards
+
+on:
+  schedule:
+    - cron: "0 6 * * *" # daily, 06:00 UTC (= Iceland time)
+  workflow_dispatch:
+  push:
+    branches: [main]
+  pull_request:
+
+concurrency:
+  group: refresh-${{ github.ref }}
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    env:
+      send_anonymous_usage_stats: "no"
+      DBT_SEND_ANONYMOUS_USAGE_STATS: "false"
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: astral-sh/setup-uv@v6
+        with:
+          enable-cache: true
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: dashboards/package-lock.json
+
+      - name: Install
+        run: |
+          uv sync --frozen
+          npm ci --prefix dashboards
+
+      # extract → dbt build (tests must pass, so bad data never ships) → lineage docs → Evidence
+      - name: Run pipeline
+        run: make refresh
+
+      - name: Deploy to Cloudflare Pages
+        if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          command: pages deploy dashboards/build --project-name=arctic-dashboards --branch=main --commit-dirty=true

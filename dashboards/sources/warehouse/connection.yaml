@@ -1,0 +1,5 @@
+# The DuckDB file built by dbt (transform/). Path is relative to this folder.
+name: warehouse
+type: duckdb
+options:
+  filename: ../../../data/warehouse.duckdb

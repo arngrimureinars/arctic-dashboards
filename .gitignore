@@ -1,0 +1,15 @@
+# Python / uv
+.venv/
+__pycache__/
+
+# Pipeline outputs (rebuilt on every run)
+data/raw/
+data/*.duckdb
+data/*.duckdb.wal
+transform/target/
+transform/logs/
+transform/dbt_packages/
+dashboards/static/lineage/
+
+.DS_Store
+transform/.user.yml
