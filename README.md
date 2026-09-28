@@ -5,8 +5,10 @@ Action pulls fresh data, transforms and tests it with dbt, builds a static Evide
 site and publishes it to Cloudflare Pages.
 
 ```
-Hagstofa PxWeb API ─┐
-data/files/*.csv ───┴─► extract/ ──► data/raw/*.parquet        (raw zone)
+Hagstofa PxWeb API ──┐
+ECB Data API ────────┤
+Veðurstofa EDR API ──┼─► extract/ ──► data/raw/*.parquet       (raw zone)
+data/files/*.csv ────┘
                                         │
                                         ▼
                      transform/ (dbt-duckdb): staging ─► marts   (tests must pass)
@@ -25,6 +27,24 @@ npm install --prefix dashboards  # Evidence
 make refresh                     # extract → dbt build → lineage docs → dashboard build
 make dev                         # dashboard dev server with live reload
 ```
+
+## Dashboards
+
+| Page | Sources |
+|---|---|
+| `/verdbolga` – Verðbólga á Íslandi | Hagstofa (VIS01000, VIS01300) |
+| `/ferdathjonusta` – Ferðaþjónustan á Íslandi | Hagstofa (SAM01601, SAM02001), ECB (ISK/EUR, USD/EUR), Veðurstofa (8 stations) |
+
+## Sources and resilience
+
+Each source has its own module in `extract/` (`hagstofa.py`, `ecb.py`, `vedur.py`, `files.py`)
+sharing `extract/common.py`: requests are spaced out and retried on HTTP 429/5xx
+(Hagstofa rate-limits), and if a source fails the previous Parquet file is kept. CI
+caches `data/raw` between runs, so a flaky API means yesterday's data rather than a
+broken site. dbt tests and `dbt source freshness` guard what gets published.
+
+Regions (landshlutar) are the shared dimension across sources: `transform/seeds/regions.csv`
+maps each region to its Hagstofa name and a representative Veðurstofa station.
 
 ## Add a dataset from Hagstofa
 

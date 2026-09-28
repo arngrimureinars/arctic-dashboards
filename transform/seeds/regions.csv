@@ -1,0 +1,9 @@
+region_key,name_is,name_en,station_id,station_name,sort_order
+capital,Höfuðborgarsvæðið,Capital region,0-20000-0-04030,Reykjavík,1
+southwest,Suðurnes,Southwest (Suðurnes),0-20000-0-04018,Keflavíkurflugvöllur,2
+west,Vesturland,West,0-20000-0-04013,Stykkishólmur,3
+westfjords,Vestfirðir,Westfjords,0-20000-0-04005,Bolungarvík,4
+northwest,Norðurland vestra,Northwest,0-20000-0-04045,Blönduós,5
+northeast,Norðurland eystra,Northeast,0-20000-0-04063,Akureyri,6
+east,Austurland,East,0-20000-0-04089,Egilsstaðaflugvöllur,7
+south,Suðurland,South,0-20000-0-04064,Kirkjubæjarklaustur,8

@@ -10,3 +10,32 @@ sources:
         description: "VIS01000 – Consumer price index (1988=100) and its monthly/annual changes, for the CPI and the CPI excluding housing."
       - name: cpi_subindices
         description: "VIS01300 – CPI sub-indices by COICOP category: index, weight, monthly change and effect on the total index."
+      - name: overnight_stays
+        description: "SAM01601 – overnight stays (gistinætur) at all registered accommodation by region, nationality group and month. The newest months are published nationally first; regional figures follow later."
+      - name: kef_passengers
+        description: "SAM02001 – departing passengers through Keflavík airport by nationality and month (Ferðamálastofa counts)."
+
+  - name: ecb
+    description: European Central Bank Data API (SDMX), pulled by extract/ecb.py.
+    meta:
+      external_location: "data/raw/ecb/{name}.parquet"
+    freshness:
+      warn_after: {count: 45, period: day}
+    loaded_at_field: "_loaded_at"
+    tables:
+      - name: fx_isk_eur
+        description: "EXR/M.ISK.EUR.SP00.A – monthly average ISK per EUR. The ECB series has a gap 2009–2017, so it starts in 2018."
+      - name: fx_usd_eur
+        description: "EXR/M.USD.EUR.SP00.A – monthly average USD per EUR, used to derive ISK per USD."
+
+  - name: vedur
+    description: Veðurstofa Íslands weather API (OGC EDR, monthly collection), pulled by extract/vedur.py.
+    meta:
+      external_location: "data/raw/vedur/{name}.parquet"
+    freshness:
+      warn_after: {count: 3, period: day}
+    loaded_at_field: "_loaded_at"
+    tables:
+      - name: weather_monthly
+        description: "Monthly mean temperature (t, °C) and precipitation (r09, mm) for one station per region."
+

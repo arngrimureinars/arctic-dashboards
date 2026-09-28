@@ -5,6 +5,7 @@ profile: arctic
 model-paths: ["models"]
 test-paths: ["tests"]
 macro-paths: ["macros"]
+seed-paths: ["seeds"]
 target-path: target
 clean-targets: [target, dbt_packages]
 
@@ -16,6 +17,10 @@ models:
     marts:
       +materialized: table
       +schema: marts
+
+seeds:
+  arctic:
+    +schema: reference
 
 flags:
   # Also keeps dbt's usage tracker out of the published docs site (/lineage).
