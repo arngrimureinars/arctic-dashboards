@@ -10,8 +10,11 @@ DBT_ARGS = --project-dir transform --profiles-dir transform
 
 refresh: extract transform docs dashboards
 
+# Each source keeps its previous data if it fails, so one flaky API doesn't stop the rest.
 extract:
 	uv run python extract/hagstofa.py
+	uv run python extract/ecb.py
+	uv run python extract/vedur.py
 	uv run python extract/files.py
 
 transform:

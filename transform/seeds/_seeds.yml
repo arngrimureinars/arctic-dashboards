@@ -1,0 +1,12 @@
+version: 2
+
+seeds:
+  - name: regions
+    description: The eight regions (landshlutar) used across sources, with a representative Veðurstofa weather station for each.
+    columns:
+      - name: region_key
+        tests: [unique, not_null]
+      - name: name_is
+        tests: [unique, not_null]
+      - name: station_id
+        tests: [unique, not_null]

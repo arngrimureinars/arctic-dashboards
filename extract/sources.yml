@@ -14,3 +14,43 @@ hagstofa:
     - name: cpi_subindices
       path: Efnahagur/visitolur/1_vnv/2_undirvisitolur/VIS01300.px
       description: Undirvísitölur neysluverðs – vægi, mánaðarbreyting og áhrif (last ~20 months)
+
+    - name: overnight_stays
+      path: Atvinnuvegir/ferdathjonusta/Gisting/3_allartegundirgististada/SAM01601.px
+      description: Gistinætur á öllum tegundum skráðra gististaða eftir landshlutum, þjóðerni og mánuðum
+      query:
+        Þjóðerni: [Total, IS, Foreigners]
+        Ár: ["2010", "2011", "2012", "2013", "2014", "2015", "2016", "2017", "2018", "2019", "2020", "2021", "2022", "2023", "2024", "2025", "2026"]
+        Eining: ["0"]          # gistinætur (not gestakomur)
+        Mánuður: ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"]
+
+    - name: kef_passengers
+      path: Atvinnuvegir/ferdathjonusta/farthegar/1_farthegar/SAM02001.px
+      description: Farþegar um Keflavíkurflugvöll (brottfarir) eftir ríkisfangi og mánuðum
+
+ecb:
+  base_url: https://data-api.ecb.europa.eu/service/data
+  series:
+    - name: fx_isk_eur
+      key: EXR/M.ISK.EUR.SP00.A
+      description: Monthly average ISK per EUR (ECB reference rate)
+      start: "2010-01"
+    - name: fx_usd_eur
+      key: EXR/M.USD.EUR.SP00.A
+      description: Monthly average USD per EUR, used to derive ISK per USD
+      start: "2010-01"
+
+vedur:
+  base_url: https://api.vedur.is/weather/rodeo/collections/month/locations
+  parameters: [t, r09]  # monthly mean temperature (°C), monthly precipitation (mm)
+  start: "2010-01-01"
+  # One representative station per region (landshluti); ids from /rodeo/collections/month/locations
+  stations:
+    - {id: 0-20000-0-04030, name: Reykjavík}
+    - {id: 0-20000-0-04018, name: Keflavíkurflugvöllur}
+    - {id: 0-20000-0-04013, name: Stykkishólmur}
+    - {id: 0-20000-0-04005, name: Bolungarvík}
+    - {id: 0-20000-0-04045, name: Blönduós}
+    - {id: 0-20000-0-04063, name: Akureyri}
+    - {id: 0-20000-0-04089, name: Egilsstaðaflugvöllur}
+    - {id: 0-20000-0-04064, name: Kirkjubæjarklaustur}

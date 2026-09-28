@@ -35,6 +35,15 @@ jobs:
           cache: npm
           cache-dependency-path: dashboards/package-lock.json
 
+      # Keep the raw zone between runs: if a source is down (e.g. Hagstofa rate-limits),
+      # the extract step falls back on yesterday's files instead of failing.
+      - name: Restore raw data
+        uses: actions/cache@v4
+        with:
+          path: data/raw
+          key: raw-${{ github.run_id }}
+          restore-keys: raw-
+
       - name: Install
         run: |
           uv sync --frozen

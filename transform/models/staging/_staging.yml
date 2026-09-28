@@ -26,3 +26,31 @@ models:
         tests: [not_null]
       - name: category_level
         description: "0 = total CPI, 1 = top-level COICOP group (01–13), 2+ = sub-groups."
+
+  - name: stg_ecb__fx_monthly
+    description: Monthly króna exchange rates from the ECB – ISK per EUR and ISK per USD.
+    columns:
+      - name: month
+        tests: [unique, not_null]
+      - name: isk_per_eur
+        tests:
+          - not_null
+          - within_range:
+              arguments: {min_value: 50, max_value: 400}
+
+  - name: stg_vedur__weather_monthly
+    description: Monthly weather per station – mean temperature (°C) and total precipitation (mm).
+    columns:
+      - name: station_id
+        tests: [not_null]
+      - name: month
+        tests: [not_null]
+      - name: mean_temp_c
+        tests:
+          - within_range:
+              arguments: {min_value: -30, max_value: 30}
+      - name: precipitation_mm
+        tests:
+          - within_range:
+              arguments: {min_value: 0, max_value: 2000}
+
