@@ -54,3 +54,26 @@ vedur:
     - {id: 0-20000-0-04063, name: Akureyri}
     - {id: 0-20000-0-04089, name: Egilsstaðaflugvöllur}
     - {id: 0-20000-0-04064, name: Kirkjubæjarklaustur}
+
+sedlabanki:
+  base_url: https://sedlabanki.is/library
+  # Quarterly investment breakdown per pension fund and division ("Sundurliðun fjárfestinga").
+  # Linked from https://sedlabanki.is/gagnatorg/lifeyrissjodir/ – if a new quarter doesn't
+  # show up, check whether the Central Bank published it under a new item id.
+  investments:
+    itemid: a3d5668e-ae93-460a-a99a-0024fc54ca72
+    sheet: Tegundaflokkun
+  # Annual summaries of the funds' financial statements ("Samantekt úr ársreikningum
+  # lífeyrissjóða"), https://sedlabanki.is/gagnatorg/lifeyrissjodir/arsreikningar-lifeyrissjoda/
+  # Add a line each June when the next year is published. Only 2019+ workbooks have the raw
+  # "Gögn" sheet; earlier years are laid out as reports only.
+  annual:
+    sheet: Gögn
+    years:
+      2025: 61be8e09-eca8-4ae4-911f-7b4682d61a6a
+      2024: afc3d18b-af3a-4da7-842f-ef8fd66a08b1
+      2023: f013aeb6-891b-4fac-9d0d-fdf1c0c0a865
+      2022: 5047f264-670b-43f4-b0cd-32768311278a
+      2021: 09a927a4-7302-4e3b-9ae2-4ea39d08ac14
+      2020: 540beb13-1e85-4f4c-a1ff-7cf41d70c46b
+      2019: 78ef2cde-5397-48c5-afb7-1e2040fac494

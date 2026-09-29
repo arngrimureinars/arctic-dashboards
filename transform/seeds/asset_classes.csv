@@ -1,0 +1,23 @@
+raw_name,asset_class_key,legal_category,name_is,name_en,asset_group,sort_order
+Ríkisvíxlar og skuldabréf (A.a),government_bonds,A.a,Ríkisskuldabréf,Government bonds,bonds,1
+Ríkisvíxlar og -skuldabréf,government_bonds,A.a,Ríkisskuldabréf,Government bonds,bonds,1
+Fasteignaveðtryggð skuldabréf (A.b),mortgage_bonds,A.b,Veðskuldabréf og sjóðfélagalán,Mortgage bonds and member loans,bonds,2
+Skuldabréf sveitarfélaga (B.a),municipal_bonds,B.a,Skuldabréf sveitarfélaga,Municipal bonds,bonds,3
+Sértryggð skuldabréf (B.c),covered_bonds,B.c,Sértryggð skuldabréf,Covered bonds,bonds,4
+Skuldabréf og víxlar lánastofnana og vátryggingafélaga (C.a),bank_bonds,C.a,Skuldabréf lánastofnana,Bank and insurer bonds,bonds,5
+Skuldabréf og víxlar lánastofnana,bank_bonds,C.a,Skuldabréf lánastofnana,Bank and insurer bonds,bonds,5
+Skuldabréf og peningamarkaðsskjöl félaga (D.a),corporate_bonds,D.a,Fyrirtækjaskuldabréf,Corporate bonds,bonds,6
+Skuldabréf og peningamarkaðsskjöl annarra sjóða um sameiginlega fjárfestingu (D.b),bond_funds,D.b,Skuldabréf sjóða um sameiginlega fjárfestingu,Bonds of collective investment funds,bonds,7
+Innlán (B.b),deposits,B.b,Innlán,Deposits,deposits,8
+Innlán,deposits,B.b,Innlán,Deposits,deposits,8
+Hlutabréf félaga (E.a),equities,E.a,Hlutabréf,Equities,equities,9
+Hlutabréf,equities,E.a,Hlutabréf,Equities,equities,9
+Hlutdeildarskírteini og hlutir í UCITS (C.b),ucits_funds,C.b,Verðbréfasjóðir (UCITS),UCITS funds,funds,10
+Hlutdeildarskírteini og hlutir (l. nr. 30/2003),ucits_funds,C.b,Verðbréfasjóðir (UCITS),UCITS funds,funds,10
+Hlutdeildarskírteini og hlutir annarra sjóða um sameiginlega fjárfestingu (E.b),other_funds,E.b,Aðrir sjóðir,Other investment funds,funds,11
+Hlutdeildarskírteini og hlutir,other_funds,E.b,Aðrir sjóðir,Other investment funds,funds,11
+Fasteignir (E.c),real_estate,E.c,Fasteignir,Real estate,other,12
+Afleiður (F.a),derivatives,F.a,Afleiður,Derivatives,other,13
+Aðrir fjármálagerningar (F.b),other,F.b,Annað,Other,other,14
+Önnur verðbréf,other,F.b,Annað,Other,other,14
+Ekki skráð,other,F.b,Annað,Other,other,14

@@ -7,7 +7,8 @@ site and publishes it to Cloudflare Pages.
 ```
 Hagstofa PxWeb API ──┐
 ECB Data API ────────┤
-Veðurstofa EDR API ──┼─► extract/ ──► data/raw/*.parquet       (raw zone)
+Veðurstofa EDR API ──┤
+Seðlabanki (xlsx) ───┼─► extract/ ──► data/raw/*.parquet       (raw zone)
 data/files/*.csv ────┘
                                         │
                                         ▼
@@ -33,11 +34,12 @@ make dev                         # dashboard dev server with live reload
 | Page | Sources |
 |---|---|
 | `/verdbolga` – Verðbólga á Íslandi | Hagstofa (VIS01000, VIS01300) |
+| `/lifeyrissjodir` – Lífeyrissjóðirnir (overview + one page per fund) | Seðlabanki: quarterly investment breakdown per fund (Q3 2017→), annual financial statement summaries (2019→) |
 | `/ferdathjonusta` – Ferðaþjónustan á Íslandi | Hagstofa (SAM01601, SAM02001), ECB (ISK/EUR, USD/EUR), Veðurstofa (8 stations) |
 
 ## Sources and resilience
 
-Each source has its own module in `extract/` (`hagstofa.py`, `ecb.py`, `vedur.py`, `files.py`)
+Each source has its own module in `extract/` (`hagstofa.py`, `ecb.py`, `vedur.py`, `sedlabanki.py`, `files.py`)
 sharing `extract/common.py`: requests are spaced out and retried on HTTP 429/5xx
 (Hagstofa rate-limits), and if a source fails the previous Parquet file is kept. CI
 caches `data/raw` between runs, so a flaky API means yesterday's data rather than a
@@ -77,3 +79,9 @@ For a one-off file, drop a `.csv` or `.xlsx` into `data/files/`; it lands in
   identical files on jsDelivr (same version) after every build.
 - **No tracking:** Evidence and dbt usage statistics are switched off, including dbt's
   tracker in the published lineage docs.
+- **Pension fund data:** the Central Bank publishes Excel workbooks whose report tabs
+  sit on a raw long-format sheet (`Tegundaflokkun` quarterly, `Gögn` annual); only those
+  sheets are read. File ids live in `extract/sources.yml` – add the new annual file each
+  June. Every fund and asset-class name must be mapped in `transform/seeds/`
+  (`pension_fund_names.csv`, `asset_classes.csv`), otherwise the build fails on purpose.
+

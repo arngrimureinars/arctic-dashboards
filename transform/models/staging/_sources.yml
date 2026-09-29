@@ -39,3 +39,15 @@ sources:
       - name: weather_monthly
         description: "Monthly mean temperature (t, °C) and precipitation (r09, mm) for one station per region."
 
+  - name: sedlabanki
+    description: Central Bank of Iceland (Seðlabanki) – pension fund statistics from its financial supervision, pulled by extract/sedlabanki.py.
+    meta:
+      external_location: "data/raw/sedlabanki/{name}.parquet"
+    tables:
+      - name: pension_investments
+        description: "Quarterly investment breakdown (Sundurliðun fjárfestinga) per fund, division, legal asset category and currency, in ISK at book value. Q3 2017 onwards."
+      - name: pension_annual
+        description: "Annual summaries of the funds' financial statements (sheet Gögn) per fund, division and line item – balance sheet, income statement, cash flow and key figures. 2019 onwards."
+        meta:
+          external_location: "data/raw/sedlabanki/pension_annual_*.parquet"
+
