@@ -8,6 +8,8 @@ hide_breadcrumbs: true
 sidebar: hide
 ---
 
+<PensionTabs active="overview" />
+
 ```sql quarters
 select distinct strftime(quarter_end, '%Y-%m-%d') as q,
        quarter(quarter_end) || '. ársfj. ' || year(quarter_end) as label,
@@ -28,7 +30,6 @@ order by quarter_end desc
       <ButtonGroupItem valueLabel="Séreign" value="Séreign" />
     </ButtonGroup>
     <Dropdown data={quarters} name=quarter value=q label=label order="q desc" title="Ársfjórðungur" defaultValue={quarters[0]?.q} />
-    <a href="/lifeyrissjodir/skrad-felog" class="inline-flex items-center rounded-md border border-base-300 px-3 py-1.5 text-sm font-medium hover:bg-base-200">Eignarhald í skráðum félögum →</a>
   </div>
 </div>
 
@@ -176,7 +177,7 @@ left join a using (fund_key)
 order by q.total_bn desc
 ```
 
-<div class="report-grid">
+<div class="report-grid" id="sjodir">
   <div class="tile span-7">
     <p class="tile-title">Samanburður sjóða – smelltu á sjóð fyrir nánari sundurliðun</p>
     <DataTable data={ranking} link=link rows=12 search=true compact=true>

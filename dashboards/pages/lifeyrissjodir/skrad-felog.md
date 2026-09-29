@@ -9,6 +9,8 @@ sidebar: hide
 sidebar_link: false
 ---
 
+<PensionTabs active="ownership" />
+
 ```sql months_is
 select * from (values
   (1, 'janúar'), (2, 'febrúar'), (3, 'mars'), (4, 'apríl'), (5, 'maí'), (6, 'júní'),
@@ -32,7 +34,6 @@ order by ticker
 
 <div class="flex flex-wrap items-end justify-between gap-x-6 gap-y-2 mb-3">
   <div>
-    <a class="text-xs text-primary hover:underline" href="/lifeyrissjodir">← Lífeyrissjóðirnir</a>
     <h1 class="text-2xl font-bold tracking-tight">Eignarhald lífeyrissjóða í skráðum félögum</h1>
     <p class="text-xs opacity-60">Heimild: Nasdaq CSD Iceland – 20 stærstu skráðu hluthafar hvers félags, mánaðarlega frá febrúar 2022</p>
   </div>

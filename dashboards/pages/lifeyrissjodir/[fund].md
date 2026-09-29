@@ -29,9 +29,10 @@ where p.slug = '${params.fund}'
 order by q.quarter_end desc
 ```
 
+<PensionTabs active="fund" fundName={fund[0]?.short_name} />
+
 <div class="flex flex-wrap items-end justify-between gap-x-6 gap-y-2 mb-3">
   <div>
-    <a class="text-xs text-primary hover:underline" href="/lifeyrissjodir">← Allir lífeyrissjóðir</a>
     <h1 class="text-2xl font-bold tracking-tight">{fund[0]?.name ?? 'Sjóður'}</h1>
     <p class="text-xs opacity-60">{fund[0]?.note ?? ''} {fund[0]?.note ? '·' : ''} Tegundir: {types.map((t) => t.fund_type).join(' og ')} · Fjárhæðir í ma.kr. · Heimild: Seðlabanki Íslands</p>
   </div>
