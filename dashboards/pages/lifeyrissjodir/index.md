@@ -194,9 +194,15 @@ order by q.total_bn desc
 </div>
 
 ```sql system_mix
-select quarter_end, asset_group_name as flokkur, group_order, sum(amount_bn) as ma_kr
+-- One column per year-end (Q4) plus the selected quarter, as shares of the total.
+select case when month(quarter_end) = 12 and quarter_end <> '${inputs.quarter.value}'::date
+            then year(quarter_end)::varchar
+            else quarter(quarter_end) || '. ársfj. ' || year(quarter_end) end as tímabil,
+       quarter_end, asset_group_name as flokkur, group_order, sum(amount_bn) as ma_kr
 from warehouse.pension_class_quarterly
 where fund_type like '${inputs.ftype}'
+  and quarter_end <= '${inputs.quarter.value}'::date
+  and (month(quarter_end) = 12 or quarter_end = '${inputs.quarter.value}'::date)
 group by all
 order by quarter_end, group_order
 ```
@@ -224,8 +230,8 @@ limit 8
 
 <div class="report-grid">
   <div class="tile span-5">
-    <p class="tile-title">Eignir kerfisins frá 2017 (ma.kr.)</p>
-    <AreaChart data={system_mix} x=quarter_end y=ma_kr series=flokkur yFmt='#,##0' chartAreaHeight=230 />
+    <p class="tile-title">Eignasamsetning kerfisins í árslok</p>
+    <BarChart data={system_mix} x=tímabil y=ma_kr series=flokkur type=stacked100 sort=false yFmt=pct0 chartAreaHeight=230 />
   </div>
   <div class="tile span-4">
     <p class="tile-title">Eignaflokkar – innlent og erlent (ma.kr.)</p>

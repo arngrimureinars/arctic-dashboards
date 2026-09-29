@@ -146,10 +146,16 @@ limit 8
 </div>
 
 ```sql history
-select c.quarter_end, c.asset_group_name as flokkur, c.group_order, sum(c.amount_bn) as ma_kr
+-- One column per year-end (Q4) plus the selected quarter, as shares of the fund's total.
+select case when month(c.quarter_end) = 12 and c.quarter_end <> '${inputs.quarter.value}'::date
+            then year(c.quarter_end)::varchar
+            else quarter(c.quarter_end) || '. ársfj. ' || year(c.quarter_end) end as tímabil,
+       c.quarter_end, c.asset_group_name as flokkur, c.group_order, sum(c.amount_bn) as ma_kr
 from warehouse.pension_class_quarterly c
 join warehouse.pension_funds p using (fund_key)
 where p.slug = '${params.fund}' and c.fund_type like '${inputs.ftype}'
+  and c.quarter_end <= '${inputs.quarter.value}'::date
+  and (month(c.quarter_end) = 12 or c.quarter_end = '${inputs.quarter.value}'::date)
 group by all
 order by c.quarter_end, c.group_order
 ```
@@ -169,8 +175,8 @@ order by a.year
 
 <div class="report-grid">
   <div class="tile span-7">
-    <p class="tile-title">Eignir frá 2017 eftir eignaflokkum (ma.kr.)</p>
-    <AreaChart data={history} x=quarter_end y=ma_kr series=flokkur yFmt='#,##0' chartAreaHeight=220 />
+    <p class="tile-title">Eignasamsetning í árslok</p>
+    <BarChart data={history} x=tímabil y=ma_kr series=flokkur type=stacked100 sort=false yFmt=pct0 chartAreaHeight=220 />
   </div>
   <div class="tile span-5">
     <p class="tile-title">Hrein raunávöxtun – {returns_chart[0]?.fund_type ?? ''}</p>
