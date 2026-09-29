@@ -65,13 +65,13 @@ def write_parquet(rows: list[dict], target: Path, source_updated: str | None = N
             tmp.write(json.dumps({**row, "_source_updated": source_updated, "_loaded_at": loaded_at}, ensure_ascii=False))
             tmp.write("\n")
     con = duckdb.connect()
-    con.execute(
-        f"""
-        COPY (
-            SELECT * FROM read_json_auto('{tmp.name}', format = 'newline_delimited', sample_size = -1)
-        ) TO '{target}' (FORMAT parquet)
-        """
-    )
+    con.execute(f"CREATE TABLE t AS SELECT * FROM read_json_auto('{tmp.name}', format = 'newline_delimited', sample_size = -1)")
+    # A column that is empty in every row gets type JSON/NULL; store it as text instead so
+    # files from different years line up.
+    for name, dtype in con.execute("SELECT column_name, data_type FROM information_schema.columns WHERE table_name = 't'").fetchall():
+        if dtype in ("JSON", '"NULL"', "NULL"):
+            con.execute(f'ALTER TABLE t ALTER "{name}" TYPE VARCHAR')
+    con.execute(f"COPY t TO '{target}' (FORMAT parquet)")
     Path(tmp.name).unlink()
 
 

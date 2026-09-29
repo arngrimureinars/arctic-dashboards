@@ -1,0 +1,27 @@
+fund_key,slug,name,short_name,kind,note
+almenni,almenni,Almenni lífeyrissjóðurinn,Almenni,lífeyrissjóður,Sameinaðist Lífsverki 2026; Seðlabankinn birtir sögu hans undir heitinu Almenni - Lífsverk.
+lifsverk,lifsverk,Lífsverk lífeyrissjóður,Lífsverk,lífeyrissjóður,Sameinaðist Almenna lífeyrissjóðnum 2026.
+birta,birta,Birta lífeyrissjóður,Birta,lífeyrissjóður,
+bru,bru,Brú lífeyrissjóður starfsmanna sveitarfélaga,Brú,lífeyrissjóður,
+efia,efia,Eftirlaunasjóður FÍA,EFÍA,lífeyrissjóður,
+festa,festa,Festa lífeyrissjóður,Festa,lífeyrissjóður,
+frjalsi,frjalsi,Frjálsi lífeyrissjóðurinn,Frjálsi,lífeyrissjóður,
+gildi,gildi,Gildi lífeyrissjóður,Gildi,lífeyrissjóður,
+islenski,islenski,Íslenski lífeyrissjóðurinn,Íslenski,lífeyrissjóður,
+bankamenn,bankamenn,Lífeyrissjóður bankamanna,Bankamanna,lífeyrissjóður,
+baendur,baendur,Lífeyrissjóður bænda,Bænda,lífeyrissjóður,
+rangaeingar,rangaeingar,Lífeyrissjóður Rangæinga,Rangæinga,lífeyrissjóður,
+bunadarbanki,bunadarbanki,Lífeyrissjóður starfsmanna Búnaðarbanka Íslands,Búnaðarbanka,lífeyrissjóður,
+lsr,lsr,Lífeyrissjóður starfsmanna ríkisins,LSR,lífeyrissjóður,
+tannlaeknar,tannlaeknar,Lífeyrissjóður Tannlæknafélags Íslands,Tannlækna,lífeyrissjóður,
+vestmannaeyjar,vestmannaeyjar,Lífeyrissjóður Vestmannaeyja,Vestmannaeyja,lífeyrissjóður,
+lv,lv,Lífeyrissjóður verzlunarmanna,LV,lífeyrissjóður,
+lifsval,lifsval,Lífsval lífeyrissparnaður,Lífsval,lífeyrissjóður,
+stapi,stapi,Stapi lífeyrissjóður,Stapi,lífeyrissjóður,
+sofnunarsjodur,sofnunarsjodur,Söfnunarsjóður lífeyrisréttinda,Söfnunarsjóður,lífeyrissjóður,
+akureyri,akureyri,Lífeyrissjóður starfsmanna Akureyrarbæjar,Akureyrarbæjar,lífeyrissjóður,Aðeins í ársreikningagögnum.
+reykjavik,reykjavik,Lífeyrissjóður starfsmanna Reykjavíkurborgar,Reykjavíkurborgar,lífeyrissjóður,Aðeins í ársreikningagögnum.
+arion,arion,Arion banki,Arion banki,vörsluaðili,Vörsluaðili séreignarsparnaðar.
+islandsbanki,islandsbanki,Íslandsbanki,Íslandsbanki,vörsluaðili,Vörsluaðili séreignarsparnaðar.
+landsbankinn,landsbankinn,Landsbankinn,Landsbankinn,vörsluaðili,Vörsluaðili séreignarsparnaðar.
+kvika,kvika,Kvika banki,Kvika,vörsluaðili,Vörsluaðili séreignarsparnaðar.

@@ -10,3 +10,38 @@ seeds:
         tests: [unique, not_null]
       - name: station_id
         tests: [unique, not_null]
+
+  - name: pension_funds
+    description: Pension funds and bank custodians of private pension savings, with URL slugs for the per-fund dashboard pages.
+    columns:
+      - name: fund_key
+        tests: [unique, not_null]
+      - name: slug
+        tests: [unique, not_null]
+
+  - name: pension_fund_names
+    description: Every fund name as spelled in the Central Bank files (quarterly and annual, all years) → fund_key. New or renamed funds must be added here or the build fails.
+    columns:
+      - name: raw_name
+        tests: [unique, not_null]
+      - name: fund_key
+        tests:
+          - relationships:
+              arguments: {to: ref('pension_funds'), field: fund_key}
+
+  - name: asset_classes
+    description: Asset class names from the Central Bank's quarterly breakdown (the legal categories A.a–F.b of the pension act, plus the older 2017 names) → one harmonised asset class and a coarse asset group.
+    columns:
+      - name: raw_name
+        tests: [unique, not_null]
+      - name: asset_group
+        tests:
+          - relationships:
+              arguments: {to: ref('asset_groups'), field: asset_group}
+
+  - name: asset_groups
+    description: Coarse asset groups used for the high-level mix (bonds, deposits, equities, funds, other).
+    columns:
+      - name: asset_group
+        tests: [unique, not_null]
+

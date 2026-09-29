@@ -85,3 +85,54 @@ models:
       - name: id
         tests: [unique, not_null]
 
+  - name: dim_pension_fund
+    description: Pension funds and bank custodians of private pension savings, with URL slug and whether they appear in the quarterly and annual data.
+    columns:
+      - name: fund_key
+        tests: [unique, not_null]
+
+  - name: fct_pension_assets_quarterly
+    description: Pension fund assets (ISK, book value) per quarter, fund, fund type (samtrygging/séreign), division, harmonised asset class and currency. Source – Central Bank quarterly investment breakdown.
+    columns:
+      - name: id
+        tests: [unique, not_null]
+      - name: fund_key
+        description: Null means a fund name in the source isn't in seeds/pension_fund_names.csv yet.
+        tests: [not_null]
+      - name: asset_class_key
+        description: Null means an asset class name in the source isn't in seeds/asset_classes.csv yet.
+        tests: [not_null]
+
+  - name: fct_pension_fund_quarterly
+    description: Per quarter, fund and fund type – total assets, share in foreign currency and the coarse asset mix (bonds, deposits, equities, funds, other).
+    columns:
+      - name: id
+        tests: [unique, not_null]
+      - name: foreign_share
+        tests:
+          - within_range:
+              arguments: {min_value: 0, max_value: 1}
+
+  - name: fct_pension_key_figures_annual
+    description: Annual key figures per fund and division – net assets, net real return (1/5/10-year), members, active members, pensioners, costs as % of average assets and actuarial position.
+    columns:
+      - name: id
+        tests: [unique, not_null]
+      - name: fund_key
+        tests: [not_null]
+      - name: real_return_pct
+        tests:
+          - within_range:
+              arguments: {min_value: -40, max_value: 40}
+      - name: actuarial_total_pct
+        description: Net assets in excess of total obligations, % (samtrygging only). Values reported in krónur by some funds are dropped.
+        tests:
+          - within_range:
+              arguments: {min_value: -100, max_value: 100}
+
+  - name: fct_pension_fund_annual
+    description: Fund-level annual key figures – asset-weighted returns and costs, summed net assets and head counts.
+    columns:
+      - name: id
+        tests: [unique, not_null]
+

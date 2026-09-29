@@ -1,0 +1,6 @@
+asset_group,name_is,name_en,sort_order
+bonds,Skuldabréf,Bonds,1
+deposits,Innlán,Deposits,2
+equities,Hlutabréf,Equities,3
+funds,Sjóðir,Investment funds,4
+other,Annað,Other,5

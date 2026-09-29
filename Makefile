@@ -15,6 +15,7 @@ extract:
 	uv run python extract/hagstofa.py
 	uv run python extract/ecb.py
 	uv run python extract/vedur.py
+	uv run python extract/sedlabanki.py
 	uv run python extract/files.py
 
 transform:
