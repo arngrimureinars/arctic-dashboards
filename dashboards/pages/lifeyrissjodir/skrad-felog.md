@@ -38,7 +38,6 @@ order by ticker
   </div>
   <div class="flex flex-wrap items-end gap-3">
     <Dropdown data={months} name=month value=m label=label order="m desc" title="Mánuður" defaultValue={months[0]?.m} />
-    <Dropdown data={companies} name=company value=ticker label=label title="Félag" defaultValue="SIMINN" />
   </div>
 </div>
 
@@ -153,15 +152,23 @@ order by record_date
 <div class="report-grid">
   <div class="tile span-3">
     <p class="tile-title">Samanlagður hlutur lífeyrissjóða</p>
-    <ECharts config={shareConfig} height="420px" />
+    <ECharts config={shareConfig} height="470px" />
   </div>
-  <div class="tile span-4">
-    <p class="tile-title">20 stærstu hluthafar {inputs.company.value} – <span style="color:#14b8a6">lífeyrissjóðir</span> og aðrir</p>
-    <ECharts config={ownersConfig} height="420px" />
-  </div>
-  <div class="tile span-5">
-    <p class="tile-title">Eignarhlutur stærstu lífeyrissjóðanna í {inputs.company.value} frá 2022</p>
-    <LineChart data={company_history} x=record_date y=pct series=sjóður yFmt=pct0 chartAreaHeight=360 />
+  <div class="tile span-9">
+    <div class="flex flex-wrap items-end justify-between gap-3 mb-1">
+      <p class="tile-title">Einstakt félag – veldu félag til að sjá hluthafa þess og þróun eignarhluta lífeyrissjóða</p>
+      <Dropdown data={companies} name=company value=ticker label=label title="Félag" defaultValue="SIMINN" />
+    </div>
+    <div class="report-grid" style="margin-bottom:0">
+      <div class="span-5">
+        <p class="tile-title">20 stærstu hluthafar {companies.find((c) => c.ticker === inputs.company.value)?.company_name ?? inputs.company.value} – <span style="color:#14b8a6">lífeyrissjóðir</span> og aðrir</p>
+        <ECharts config={ownersConfig} height="420px" />
+      </div>
+      <div class="span-7">
+        <p class="tile-title">Eignarhlutur stærstu lífeyrissjóðanna í {companies.find((c) => c.ticker === inputs.company.value)?.company_name ?? inputs.company.value} frá 2022</p>
+        <LineChart data={company_history} x=record_date y=pct series=sjóður yFmt=pct0 chartAreaHeight=360 />
+      </div>
+    </div>
   </div>
 </div>
 
