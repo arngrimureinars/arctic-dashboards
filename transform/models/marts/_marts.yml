@@ -136,3 +136,43 @@ models:
       - name: id
         tests: [unique, not_null]
 
+  - name: dim_listed_company
+    description: Listed companies covered by Nasdaq CSD's top-20 report (keyed by current ticker; a company can have had several ISINs), with the months they appear.
+    columns:
+      - name: ticker
+        tests: [unique, not_null]
+
+  - name: fct_listed_top20_monthly
+    description: Every registered top-20 shareholder per company and month (Nasdaq CSD), with pension funds identified by kennitala.
+    columns:
+      - name: id
+        tests: [unique, not_null]
+      - name: company_name
+        description: Null means a new ISIN that isn't in seeds/listed_companies.csv yet.
+        tests: [not_null]
+      - name: pct
+        tests:
+          - within_range:
+              arguments: {min_value: 0, max_value: 100}
+
+  - name: fct_pension_listed_holdings
+    description: Pension fund stakes in listed companies per month (divisions summed) – shares, % and change over 12 months. Only stakes large enough to be in a company's top 20.
+    columns:
+      - name: id
+        tests: [unique, not_null]
+      - name: fund_key
+        tests:
+          - not_null
+          - relationships:
+              arguments: {to: ref('dim_pension_fund'), field: fund_key}
+
+  - name: fct_listed_pension_share
+    description: Combined % of each listed company held by pension funds (among its top-20 owners) per month.
+    columns:
+      - name: id
+        tests: [unique, not_null]
+      - name: pension_pct
+        tests:
+          - within_range:
+              arguments: {min_value: 0, max_value: 100}
+

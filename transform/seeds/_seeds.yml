@@ -45,3 +45,23 @@ seeds:
       - name: asset_group
         tests: [unique, not_null]
 
+  - name: pension_fund_owners
+    config:
+      column_types: {owner_id: varchar, fund_key: varchar, division_label: varchar, is_pension: boolean, note: varchar}
+    description: Kennitala of every pension fund (or division) that appears as a registered owner in Nasdaq CSD's top-20 lists → fund_key. Owners that merely look like pension funds are listed with is_pension = false.
+    columns:
+      - name: owner_id
+        tests: [unique, not_null]
+      - name: fund_key
+        tests:
+          - relationships:
+              arguments: {to: ref('pension_funds'), field: fund_key}
+
+  - name: listed_companies
+    config:
+      column_types: {isin: varchar, ticker: varchar, name: varchar, note: varchar}
+    description: Listed companies in Nasdaq CSD's monthly top-20 report, keyed by ISIN (tickers change, e.g. VIS → SKAGI, REGINN → HEIMAR, OLGERD → BERA).
+    columns:
+      - name: isin
+        tests: [unique, not_null]
+
