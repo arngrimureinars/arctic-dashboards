@@ -51,3 +51,11 @@ sources:
         meta:
           external_location: "data/raw/sedlabanki/pension_annual_*.parquet"
 
+  - name: nasdaq_csd
+    description: Nasdaq CSD Iceland – monthly report on the 20 largest registered shareholders of covered listed companies, pulled by extract/nasdaq_csd.py.
+    meta:
+      external_location: "data/raw/nasdaq_csd/top20_*.parquet"
+    tables:
+      - name: top20
+        description: "One row per company, month and owner among the 20 largest: shares, total issued, % and the owner's kennitala. February 2022 onwards. Registered (direct) holdings only – beneficial owners behind custody accounts and fund holdings aren't visible."
+

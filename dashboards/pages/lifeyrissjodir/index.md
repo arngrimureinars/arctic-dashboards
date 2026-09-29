@@ -28,6 +28,7 @@ order by quarter_end desc
       <ButtonGroupItem valueLabel="Séreign" value="Séreign" />
     </ButtonGroup>
     <Dropdown data={quarters} name=quarter value=q label=label order="q desc" title="Ársfjórðungur" defaultValue={quarters[0]?.q} />
+    <a href="/lifeyrissjodir/skrad-felog" class="inline-flex items-center rounded-md border border-base-300 px-3 py-1.5 text-sm font-medium hover:bg-base-200">Eignarhald í skráðum félögum →</a>
   </div>
 </div>
 

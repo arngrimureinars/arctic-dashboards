@@ -77,3 +77,18 @@ sedlabanki:
       2021: 09a927a4-7302-4e3b-9ae2-4ea39d08ac14
       2020: 540beb13-1e85-4f4c-a1ff-7cf41d70c46b
       2019: 78ef2cde-5397-48c5-afb7-1e2040fac494
+
+nasdaq_csd:
+  # Nasdaq CSD Iceland's monthly "20 largest shareholders and shares held by issuer" report,
+  # published as a market notice with Excel attachments (Feb 2022 onwards).
+  api_url: https://api.news.eu.nasdaq.com/news/query.action
+  query:
+    type: json
+    showAttachments: "true"
+    globalName: NordicMarketNotices
+    globalGroup: exchangeNotice
+    displayLanguage: en
+    freeText: 20 largest shareholders
+  headline_must_contain: [Nasdaq CSD, largest shareholders]
+  attachment_name_contains: [top]   # the top-20 file ("Top 20 …", "Topp 20 …")
+  attachment_name_excludes: [own shares, eigin]  # the issuers' own-shares file (once named "Top20_ Equity issuer holding in its own shares")

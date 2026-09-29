@@ -1,0 +1,23 @@
+owner_id,fund_key,division_label,is_pension,note
+5501973409,lsr,A-deild,true,
+4302696669,lsr,B-deild,true,
+4302694459,lv,,true,
+5611952779,gildi,,true,
+4302690389,birta,,true,
+4910982529,bru,,true,
+4302696589,bru,R-deild,true,Áður Lífeyrissjóður starfsmanna Reykjavíkurborgar
+6010922559,stapi,,true,
+5711710239,festa,,true,
+4501810489,sofnunarsjodur,,true,
+4502902549,almenni,,true,Heitir nú Almenni-Lífsverk lífeyrissjóður
+4302694299,lifsverk,,true,Sameinaðist Almenna 2026
+6009780129,frjalsi,,true,
+5805720229,vestmannaeyjar,,true,
+6503760809,efia,,true,
+6701720589,baendur,,true,
+6608989059,islenski,Lífsbraut 1,true,
+4212999009,islenski,Samtrygging,true,
+4412979209,bankamenn,Aldursdeild,true,
+5101694339,bunadarbanki,,true,
+6306099680,islandsbanki,Lífeyrisþjónusta,true,Séreignarsparnaður Íslandsbanka
+5704191530,,,false,Fagfjárfestasjóður – ekki lífeyrissjóður (nafnið inniheldur „festa“)

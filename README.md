@@ -8,7 +8,8 @@ site and publishes it to Cloudflare Pages.
 Hagstofa PxWeb API ──┐
 ECB Data API ────────┤
 Veðurstofa EDR API ──┤
-Seðlabanki (xlsx) ───┼─► extract/ ──► data/raw/*.parquet       (raw zone)
+Seðlabanki (xlsx) ───┤
+Nasdaq CSD (xls) ────┼─► extract/ ──► data/raw/*.parquet       (raw zone)
 data/files/*.csv ────┘
                                         │
                                         ▼
@@ -35,6 +36,7 @@ make dev                         # dashboard dev server with live reload
 |---|---|
 | `/verdbolga` – Verðbólga á Íslandi | Hagstofa (VIS01000, VIS01300) |
 | `/lifeyrissjodir` – Lífeyrissjóðirnir (overview + one page per fund) | Seðlabanki: quarterly investment breakdown per fund (Q3 2017→), annual financial statement summaries (2019→) |
+| `/lifeyrissjodir/skrad-felog` – pension fund ownership of listed companies | Nasdaq CSD Iceland: monthly top-20 registered shareholders per company (Feb 2022→), funds matched by kennitala |
 | `/ferdathjonusta` – Ferðaþjónustan á Íslandi | Hagstofa (SAM01601, SAM02001), ECB (ISK/EUR, USD/EUR), Veðurstofa (8 stations) |
 
 ## Sources and resilience
@@ -84,4 +86,9 @@ For a one-off file, drop a `.csv` or `.xlsx` into `data/files/`; it lands in
   sheets are read. File ids live in `extract/sources.yml` – add the new annual file each
   June. Every fund and asset-class name must be mapped in `transform/seeds/`
   (`pension_fund_names.csv`, `asset_classes.csv`), otherwise the build fails on purpose.
+- **Listed ownership:** Nasdaq CSD's monthly market notice lists each covered company's 20
+  largest registered owners with kennitala. Pension funds are matched by kennitala in
+  `transform/seeds/pension_fund_owners.csv`; an owner that looks like a pension fund but
+  isn't mapped fails the build. Companies are keyed by current ticker in
+  `listed_companies.csv` (ISINs and tickers change). Only direct top-20 holdings are visible.
 

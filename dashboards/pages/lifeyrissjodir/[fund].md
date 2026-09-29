@@ -234,4 +234,52 @@ order by a.year desc, a.fund_type
   </div>
 </div>
 
+```sql listed_now
+-- The fund's stakes in listed companies, latest CSD month (top-20 lists only)
+select h.ticker as félag, h.company_name as nafn, h.pct, h.pct_change_12m, h.divisions,
+       strftime(h.record_date, '%m/%Y') as mánuður
+from warehouse.listed_holdings h
+join warehouse.pension_funds p using (fund_key)
+where p.slug = '${params.fund}'
+  and h.record_date = (select max(record_date) from warehouse.listed_holdings)
+order by h.pct desc
+```
+
+```sql listed_history
+-- The fund's five largest current stakes over time
+with top as (select félag from ${listed_now} order by pct desc limit 5)
+select h.record_date, h.ticker as félag, h.pct
+from warehouse.listed_holdings h
+join warehouse.pension_funds p using (fund_key)
+where p.slug = '${params.fund}' and h.ticker in (select félag from top)
+order by h.record_date
+```
+
+{#if listed_now.length > 0}
+
+<script>
+  $: listedRows = Array.from(listed_now ?? []);
+  $: listedConfig = {
+    tooltip: { trigger: 'axis', axisPointer: { type: 'shadow' }, valueFormatter: (v) => (v == null ? '' : `${(v * 100).toLocaleString('is-IS', { maximumFractionDigits: 2 })} %`) },
+    grid: { top: 4, left: 4, right: 40, bottom: 4, containLabel: true },
+    xAxis: { type: 'value', axisLabel: { formatter: (v) => `${Math.round(v * 100)} %`, fontSize: 10 }, splitLine: { lineStyle: { opacity: 0.3 } } },
+    yAxis: { type: 'category', inverse: true, data: listedRows.map((r) => r.félag), axisLabel: { fontSize: 10 }, axisTick: { show: false } },
+    series: [{ type: 'bar', barWidth: '65%', itemStyle: { color: '#14b8a6' }, data: listedRows.map((r) => r.pct),
+               label: { show: true, position: 'right', fontSize: 9, formatter: (p) => `${(p.value * 100).toFixed(1)} %` } }]
+  };
+</script>
+
+<div class="report-grid">
+  <div class="tile span-5">
+    <p class="tile-title">Eignarhlutir í skráðum félögum ({listed_now[0]?.mánuður}) – þar sem sjóðurinn er meðal 20 stærstu</p>
+    <ECharts config={listedConfig} height={Math.max(180, listedRows.length * 22 + 20) + 'px'} />
+  </div>
+  <div class="tile span-7">
+    <p class="tile-title">Stærstu eignarhlutirnir frá 2022 · <a class="text-primary hover:underline" href="/lifeyrissjodir/skrad-felog">allir lífeyrissjóðir →</a></p>
+    <LineChart data={listed_history} x=record_date y=pct series=félag yFmt=pct0 chartAreaHeight=240 />
+  </div>
+</div>
+
+{/if}
+
 <p class="text-xs opacity-60">Ávöxtun, kostnaður og tryggingafræðileg staða eru vegin meðaltöl deilda eftir hreinni eign; sjóðfélagar eru lagðir saman yfir deildir. <a class="underline" href="/lineage/index.html">Sjá hvernig gögnin verða til →</a></p>
