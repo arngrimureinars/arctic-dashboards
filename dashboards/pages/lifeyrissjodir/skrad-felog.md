@@ -32,15 +32,11 @@ where record_date = '${inputs.month.value}'::date
 order by ticker
 ```
 
-<div class="flex flex-wrap items-end justify-between gap-x-6 gap-y-2 mb-3">
-  <div>
-    <h1 class="text-2xl font-bold tracking-tight">Eignarhald lífeyrissjóða í skráðum félögum</h1>
-    <p class="text-xs opacity-60">Heimild: Nasdaq CSD Iceland – 20 stærstu skráðu hluthafar hvers félags, mánaðarlega frá febrúar 2022</p>
-  </div>
-  <div class="flex flex-wrap items-end gap-3">
+<ReportHero eyebrow="Mælaborð · Lífeyrissjóðir" title="Eignarhald lífeyrissjóða í skráðum félögum" subtitle="Heimildir: Nasdaq CSD Iceland (20 stærstu hluthafar, mánaðarlega frá feb. 2022) · Íslandsbanki og Arion banki (hluthafar yfir 1 %)">
+  <div slot="filters" class="flex flex-wrap items-end gap-3">
     <Dropdown data={months} name=month value=m label=label order="m desc" title="Mánuður" defaultValue={months[0]?.m} />
   </div>
-</div>
+</ReportHero>
 
 ```sql kpis
 select count(*) as companies,
@@ -64,7 +60,7 @@ limit 1
 
 <div class="report-grid">
   <div class="tile span-3">
-    <BigValue data={kpis} value=companies title="Skráð félög á listanum" />
+    <BigValue data={kpis} value=companies title="Skráð félög" />
   </div>
   <div class="tile span-3">
     <BigValue data={kpis} value=median_pension_pct title="Hlutur lífeyrissjóða – miðgildi félaga" fmt=pct0 />
@@ -93,7 +89,7 @@ order by pension_pct desc
 ```
 
 <div class="tile mb-3">
-  <p class="tile-title">Hver á hvað? Eignarhlutur hvers lífeyrissjóðs í hverju félagi (– = ekki meðal 20 stærstu)</p>
+  <p class="tile-title">Hver á hvað? Eignarhlutur hvers lífeyrissjóðs í hverju félagi (– = ekki á hluthafalista félagsins)</p>
   <Heatmap data={heat} x=félag y=sjóður value=pct valueFmt=pct1 colorScale={['#e0f2fe', '#0e5a8a']} ySort=fund_sum ySortOrder=desc />
 </div>
 
@@ -196,5 +192,5 @@ order by h.pct desc
 
 <details class="text-xs opacity-70">
 <summary class="cursor-pointer">Um gögnin – hvað sést og hvað ekki</summary>
-<p class="mt-1">Nasdaq CSD Iceland birtir mánaðarlega lista yfir 20 stærstu skráðu hluthafa þeirra félaga sem eru á listanum. Lífeyrissjóðir eru auðkenndir með kennitölu. <b>Aðeins 20 stærstu hluthafar</b> hvers félags birtast, svo minni eignarhlutir sjást ekki. <b>Aðeins bein skráning</b>: hlutir sem lífeyrissjóðir eiga í gegnum verðbréfasjóði eða vörslureikninga sjást ekki, og skráin sýnir ekki endanlega eigendur. <b>Ekki á listanum</b>: m.a. Arion banki, Íslandsbanki, Alvotech og Amaroq. Hlutur „lífeyrissjóða samanlagt“ er summa þeirra lífeyrissjóða sem eru á topp-20 listanum. <a class="underline" href="/lineage/index.html">Sjá hvernig gögnin verða til →</a></p>
+<p class="mt-1">Nasdaq CSD Iceland birtir mánaðarlega lista yfir 20 stærstu skráðu hluthafa þeirra félaga sem eru á listanum. Lífeyrissjóðir eru auðkenndir með kennitölu. <b>Aðeins 20 stærstu hluthafar</b> hvers félags birtast, svo minni eignarhlutir sjást ekki. <b>Aðeins bein skráning</b>: hlutir sem lífeyrissjóðir eiga í gegnum verðbréfasjóði eða vörslureikninga sjást ekki, og skráin sýnir ekki endanlega eigendur. <b>Bankarnir</b>: Íslandsbanki og Arion banki eru ekki í skýrslu Nasdaq CSD. Þeir birta sjálfir alla hluthafa sem eiga yfir 1 % (skv. 19. gr. laga nr. 161/2002); við vistum þann lista mánaðarlega frá september 2026, svo saga bankanna byrjar þá. <b>Ekki með</b>: m.a. Alvotech og Amaroq. Hlutur „lífeyrissjóða samanlagt“ er summa þeirra lífeyrissjóða sem eru á topp-20 listanum. <a class="underline" href="/lineage/index.html">Sjá hvernig gögnin verða til →</a></p>
 </details>

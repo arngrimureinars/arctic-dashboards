@@ -1,6 +1,7 @@
 owner_id,fund_key,division_label,is_pension,note
 5501973409,lsr,A-deild,true,
 4302696669,lsr,B-deild,true,
+7112973919,lsr,,true,LSR í heild (bankarnir birta sjóðinn ekki eftir deildum)
 4302694459,lv,,true,
 5611952779,gildi,,true,
 4302690389,birta,,true,
