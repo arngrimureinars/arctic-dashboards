@@ -176,3 +176,58 @@ models:
           - within_range:
               arguments: {min_value: 0, max_value: 100}
 
+
+  - name: fct_alcohol_products
+    description: >
+      Every alcohol product listed today by the covered stores (Vínbúðin, Desma, Vínklúbburinn, Vin.is), one row
+      per store and product: common category, bottle size, ABV, price per bottle/can (cases split), price per litre
+      and per litre of pure alcohol, and – for bottles Vínbúðin also sells – the price difference from Vínbúðin.
+    columns:
+      - name: product_id
+        tests: [unique, not_null]
+      - name: product_key
+        description: Shared by the same bottle in different stores (int_alcohol_product_match); the Vínbúðin product id where Vínbúðin sells it.
+        tests: [not_null]
+      - name: store
+        tests:
+          - relationships:
+              arguments: {to: ref('alcohol_stores'), field: store}
+      - name: unit_price_isk
+        description: Price of one bottle or can in ISK (a case price divided by the units in it).
+        tests:
+          - not_null
+          - within_range:
+              arguments: {min_value: 50, max_value: 1000000}
+      - name: abv
+        description: Alcohol by volume, %. Missing where the shop doesn't state it.
+        tests:
+          - within_range:
+              arguments: {min_value: 0.1, max_value: 80}
+      - name: volume_ml
+        description: Bottle/can size in ml (Vínbúðin also sells 20–30 l party kegs). Wine without a stated size is taken as 750 ml (volume_assumed).
+        tests:
+          - within_range:
+              arguments: {min_value: 20, max_value: 50000}
+      - name: vs_vinbudin_pct
+        description: Price compared with the same bottle at Vínbúðin (0.1 = 10 % dearer). Only for matched bottles.
+
+  - name: fct_alcohol_matched
+    description: Bottles sold by two or more stores, with each store's price side by side, the cheapest store and the price spread.
+    columns:
+      - name: product_key
+        tests: [unique, not_null]
+
+  - name: fct_alcohol_store_category
+    description: Per store and category (category 'Allt' = all together) – number of products, median price and price per litre, and the median price difference from Vínbúðin on the bottles both sell.
+    columns:
+      - name: store
+        tests: [not_null]
+
+  - name: fct_alcohol_price_history
+    description: >
+      Daily price level per store and category from the price change log (history starts 1 October 2026): median
+      difference from Vínbúðin on today's matched bottles, and an index of the store's own prices (first day = 100,
+      geometric mean of each product's price relative to its first observed price).
+
+  - name: fct_alcohol_price_changes
+    description: Every price change seen since the first snapshot, with the old and new price.

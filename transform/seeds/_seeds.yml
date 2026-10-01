@@ -65,3 +65,27 @@ seeds:
       - name: isin
         tests: [unique, not_null]
 
+
+  - name: alcohol_stores
+    description: Alcohol retailers covered by the Áfengi dashboard (keys as in extract/sources.yml).
+    columns:
+      - name: store
+        tests: [unique, not_null]
+
+  - name: alcohol_category_map
+    description: >
+      The shops' own category names and tags (lower case) → one common category. A product can carry several
+      (Shopify type + tags); the one with the lowest priority wins. "(ekki með)" leaves the product out
+      (gift wrapping, non-alcoholic). Products with no mapped category fall back on keywords in the name and ABV.
+    columns:
+      - name: raw_category
+        tests: [unique, not_null]
+      - name: category
+        tests: [not_null]
+
+  - name: alcohol_match_overrides
+    description: >
+      Manual fixes to the automatic product matching: a store product → the Vínbúðin product it is
+      (vinbudin_product_id), or empty to never match it.
+    config:
+      column_types: {store: varchar, store_product_id: varchar, vinbudin_product_id: varchar, note: varchar}

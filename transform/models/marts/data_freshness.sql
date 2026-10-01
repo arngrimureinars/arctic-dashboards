@@ -15,3 +15,5 @@ select 'fx', max(month)::timestamp, max(loaded_at) from {{ ref('stg_ecb__fx_mont
 union all
 select 'weather', max(month)::timestamp, max(loaded_at) from {{ ref('stg_vedur__weather_monthly') }}
 
+union all
+select 'alcohol', max(fetched_at)::timestamp, max(fetched_at)::timestamp from {{ ref('stg_alcohol__products') }}
