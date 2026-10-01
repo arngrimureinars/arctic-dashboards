@@ -18,6 +18,7 @@ extract:
 	uv run python extract/sedlabanki.py
 	uv run python extract/nasdaq_csd.py
 	uv run python extract/bank_shareholders.py
+	uv run python extract/alcohol.py
 	uv run python extract/files.py
 
 transform:

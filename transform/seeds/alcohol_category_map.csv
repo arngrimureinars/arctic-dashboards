@@ -1,0 +1,46 @@
+raw_category,category,priority
+red,Rauðvín,1
+white,Hvítvín,1
+rose,Rósavín,1
+bubbly,Freyðivín,1
+sparkling,Freyðivín,1
+beer,Bjór,1
+ciderfruitandblends,Síder og blöndur,1
+strong,Sterkt áfengi,1
+liqueurshotsandbitter,Líkjörar og skot,1
+fortified,Styrkt og annað vín,1
+aromatised,Styrkt og annað vín,1
+sakeandmead,Styrkt og annað vín,1
+wrapper,(ekki með),1
+other,(ekki með),1
+rauðvín,Rauðvín,1
+hvítvín,Hvítvín,1
+rósavín,Rósavín,1
+freyðivín,Freyðivín,1
+kampavín,Freyðivín,1
+kampavín & freyðivín,Freyðivín,1
+champagne,Freyðivín,2
+bjór,Bjór,1
+jólabjór,Bjór,2
+piwo,Bjór,1
+blöndur,Síder og blöndur,1
+blandaðir drykkir,Síder og blöndur,1
+viskí,Sterkt áfengi,1
+vodka,Sterkt áfengi,1
+gin,Sterkt áfengi,1
+romm,Sterkt áfengi,1
+rum,Sterkt áfengi,1
+tekíla,Sterkt áfengi,1
+tequila,Sterkt áfengi,1
+koníak,Sterkt áfengi,1
+calvados,Sterkt áfengi,1
+grappa,Sterkt áfengi,1
+skot,Líkjörar og skot,1
+líkjörar & bitter,Líkjörar og skot,1
+portvín & sherrí,Styrkt og annað vín,1
+sætvín,Styrkt og annað vín,1
+vermouth,Styrkt og annað vín,1
+tegund_desertvín,Styrkt og annað vín,1
+óáfengt,(ekki með),1
+óáfengt vín,(ekki með),1
+gjafaöskjur,(ekki með),3

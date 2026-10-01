@@ -54,3 +54,12 @@ models:
           - within_range:
               arguments: {min_value: 0, max_value: 2000}
 
+
+  - name: stg_alcohol__products
+    description: Today's products per store with a common category, price per unit and per litre, and normalised names for matching. Non-alcoholic drinks, gift cards, memberships and mystery boxes are left out.
+    columns:
+      - name: product_id
+        tests: [unique, not_null]
+
+  - name: stg_alcohol__price_changes
+    description: The price change log (data/snapshots/alcohol/), one row per store, product and day its price or stock changed.

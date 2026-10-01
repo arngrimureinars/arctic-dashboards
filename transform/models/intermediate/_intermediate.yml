@@ -1,0 +1,14 @@
+version: 2
+
+models:
+  - name: int_alcohol_product_match
+    description: >
+      Which store products are the same bottle. Each product gets a product_key shared with its matches in other
+      stores – the Vínbúðin product id when Vínbúðin sells it. Methods: override (alcohol_match_overrides), sku
+      (the store's SKU is the Vínbúðin product number), name (normalised names, size, ABV, category, grapes and
+      qualifiers agree), anchor (Vínbúðin's own products).
+    columns:
+      - name: product_id
+        tests: [unique, not_null]
+      - name: product_key
+        tests: [not_null]

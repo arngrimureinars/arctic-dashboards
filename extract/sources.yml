@@ -104,3 +104,29 @@ bank_shareholders:
   arion:
     ticker: ARION
     page_url: https://www.arionbanki.is/fjarfestaupplysingar/hlutabref/hluthafalisti
+
+alcohol:
+  # Icelandic alcohol retailers whose catalogues can be read from a public, machine-readable
+  # product feed (see the README of the Áfengi dashboard for those left out and why).
+  # min_products guards against a silently broken feed: fewer products → keep yesterday's file.
+  min_interval: 1.0
+  stores:
+    vinbudin:
+      platform: vinbudin
+      api_url: https://www.vinbudin.is/addons/origo/module/ajaxwebservices/search.asmx/DoSearch
+      page_size: 500
+      min_products: 3000
+    desma:
+      platform: shopify
+      base_url: https://desma.is
+      exclude_types: [snakk, Nikótín]   # Desma also sells snacks and nicotine pouches
+      min_products: 200
+    vinklubburinn:
+      platform: shopify
+      base_url: https://vinklubburinn.is
+      default_volume_ml: 750            # a wine shop; titles carry no bottle size (magnums say so)
+      min_products: 150
+    vin_is:
+      platform: woocommerce
+      base_url: https://vin.is
+      min_products: 150

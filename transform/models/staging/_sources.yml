@@ -67,3 +67,19 @@ sources:
       - name: owners
         description: "One row per bank, snapshot and owner above 1 %: shares, % and kennitala where the bank links it. History starts September 2026."
 
+
+  - name: alcohol
+    description: Product catalogues and prices of Icelandic alcohol retailers (Vínbúðin's search API, Shopify and WooCommerce product feeds), pulled daily by extract/alcohol.py.
+    meta:
+      external_location: "read_parquet('data/raw/alcohol/*.parquet', union_by_name = true)"
+    tables:
+      - name: products
+        description: "One row per store and product as listed today: name, producer, the shop's category names/tags, bottle size (ml), ABV, units per sale, price and regular price (ISK) and stock. Volume, ABV and pack size are parsed from the title where the shop has no field for them."
+
+  - name: alcohol_snapshots
+    description: Price change log kept by extract/alcohol.py and committed by CI (data/snapshots/alcohol/). The first file (1 Oct 2026) holds every product; later files only new, changed or delisted products.
+    meta:
+      external_location: "data/snapshots/alcohol/prices_*.parquet"
+    tables:
+      - name: price_changes
+        description: "One row per store, product and day its price, regular price or stock changed (listed = false when it disappeared from the store)."

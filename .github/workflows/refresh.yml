@@ -13,7 +13,7 @@ concurrency:
   cancel-in-progress: false
 
 permissions:
-  contents: write  # to commit the monthly bank shareholder snapshots (data/snapshots/)
+  contents: write  # to commit the snapshots in data/snapshots/ (bank shareholder lists, alcohol prices)
 
 jobs:
   refresh:
@@ -53,17 +53,17 @@ jobs:
       - name: Run pipeline
         run: make refresh
 
-      # Íslandsbanki and Arion only publish their current shareholder list, so this month's
-      # snapshot is committed to build up history. Pushes made with GITHUB_TOKEN don't
-      # trigger another workflow run.
-      - name: Commit shareholder snapshots
+      # Sources that only show their current state are snapshotted to build up history:
+      # Íslandsbanki's and Arion's shareholder lists (monthly) and alcohol prices (daily change
+      # log). Pushes made with GITHUB_TOKEN don't trigger another workflow run.
+      - name: Commit snapshots
         if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
         run: |
           git add data/snapshots
           if ! git diff --cached --quiet; then
             git config user.name "github-actions[bot]"
             git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-            git commit -m "Snapshot bank shareholder lists $(date -u +%Y-%m-%d)"
+            git commit -m "Snapshot shareholder lists and alcohol prices $(date -u +%Y-%m-%d)"
             git push
           fi
 

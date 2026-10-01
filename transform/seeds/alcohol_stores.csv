@@ -1,0 +1,5 @@
+store,name,store_type,home_delivery,website,sort_order
+vinbudin,Vínbúðin,ÁTVR (ríkið),false,https://www.vinbudin.is,1
+desma,Desma,Netverslun,true,https://desma.is,2
+vinklubburinn,Vínklúbburinn,Netverslun,true,https://vinklubburinn.is,3
+vin_is,Vin.is,Netverslun,true,https://vin.is,4
