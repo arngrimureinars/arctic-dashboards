@@ -92,3 +92,15 @@ nasdaq_csd:
   headline_must_contain: [Nasdaq CSD, largest shareholders]
   attachment_name_contains: [top]   # the top-20 file ("Top 20 …", "Topp 20 …")
   attachment_name_excludes: [own shares, eigin]  # the issuers' own-shares file (once named "Top20_ Equity issuer holding in its own shares")
+
+bank_shareholders:
+  # Banks not covered by the Nasdaq CSD top-20 report publish owners above 1 % themselves
+  # (Act on Financial Undertakings no. 161/2002, art. 19). Only the current list is public, so
+  # a snapshot per month is kept in data/snapshots/bank_shareholders/ (committed by CI).
+  islandsbanki:
+    ticker: ISB
+    api_url: https://www.islandsbanki.is/publicapi/bank/shareholders?lang=is
+    page_url: https://www.islandsbanki.is/is/grein/hluthafar   # embeds owner id → kennitala
+  arion:
+    ticker: ARION
+    page_url: https://www.arionbanki.is/fjarfestaupplysingar/hlutabref/hluthafalisti

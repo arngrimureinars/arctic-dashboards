@@ -4,7 +4,8 @@
 with h as (
     select record_date, fund_key, ticker, any_value(company_name) as company_name,
            sum(shares) as shares, sum(pct) as pct,
-           string_agg(distinct division_label, ', ') filter (where division_label is not null) as divisions
+           string_agg(distinct division_label, ', ') filter (where division_label is not null) as divisions,
+           any_value(list_source) as list_source, max(as_of) as as_of
     from {{ ref('fct_listed_top20_monthly') }}
     where is_pension_fund
     group by record_date, fund_key, ticker

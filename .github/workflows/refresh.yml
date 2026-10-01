@@ -13,7 +13,7 @@ concurrency:
   cancel-in-progress: false
 
 permissions:
-  contents: read
+  contents: write  # to commit the monthly bank shareholder snapshots (data/snapshots/)
 
 jobs:
   refresh:
@@ -52,6 +52,20 @@ jobs:
       # extract → dbt build (tests must pass, so bad data never ships) → lineage docs → Evidence
       - name: Run pipeline
         run: make refresh
+
+      # Íslandsbanki and Arion only publish their current shareholder list, so this month's
+      # snapshot is committed to build up history. Pushes made with GITHUB_TOKEN don't
+      # trigger another workflow run.
+      - name: Commit shareholder snapshots
+        if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
+        run: |
+          git add data/snapshots
+          if ! git diff --cached --quiet; then
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git commit -m "Snapshot bank shareholder lists $(date -u +%Y-%m-%d)"
+            git push
+          fi
 
       # `pages deploy` doesn't create the project, so make sure it exists (no-op after the first run).
       - name: Ensure Cloudflare Pages project exists

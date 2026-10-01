@@ -6,6 +6,8 @@ select
     any_value(company_name) as company_name,
     sum(pct) filter (where is_pension_fund) as pension_pct,
     sum(pct) as top20_pct,
-    count(distinct fund_key) filter (where is_pension_fund) as pension_funds
+    count(distinct fund_key) filter (where is_pension_fund) as pension_funds,
+    any_value(list_source) as list_source,
+    max(as_of) as as_of
 from {{ ref('fct_listed_top20_monthly') }}
 group by record_date, ticker

@@ -31,12 +31,8 @@ order by q.quarter_end desc
 
 <PensionTabs active="fund" fundName={fund[0]?.short_name} />
 
-<div class="flex flex-wrap items-end justify-between gap-x-6 gap-y-2 mb-3">
-  <div>
-    <h1 class="text-2xl font-bold tracking-tight">{fund[0]?.name ?? 'Sjóður'}</h1>
-    <p class="text-xs opacity-60">{fund[0]?.note ?? ''} {fund[0]?.note ? '·' : ''} Tegundir: {types.map((t) => t.fund_type).join(' og ')} · Fjárhæðir í ma.kr. · Heimild: Seðlabanki Íslands</p>
-  </div>
-  <div class="flex flex-wrap items-end gap-3">
+<ReportHero eyebrow="Mælaborð · Lífeyrissjóðir" title={fund[0]?.name ?? 'Lífeyrissjóður'} subtitle={(fund[0]?.note ? fund[0].note + ' · ' : '') + 'Tegundir: ' + types.map((t) => t.fund_type).join(' og ') + ' · Fjárhæðir í ma.kr. · Heimild: Seðlabanki Íslands'}>
+  <div slot="filters" class="flex flex-wrap items-end gap-3">
     <ButtonGroup name=ftype title="Tegund">
       <ButtonGroupItem valueLabel="Allt" value="%" default />
       <ButtonGroupItem valueLabel="Samtrygging" value="Samtrygging" />
@@ -44,7 +40,7 @@ order by q.quarter_end desc
     </ButtonGroup>
     <Dropdown data={quarters} name=quarter value=q label=label order="q desc" title="Ársfjórðungur" defaultValue={quarters[0]?.q} />
   </div>
-</div>
+</ReportHero>
 
 ```sql series
 -- The fund's totals per quarter up to the selected quarter (KPI sparklines); newest first.

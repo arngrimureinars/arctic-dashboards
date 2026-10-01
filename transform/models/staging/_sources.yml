@@ -59,3 +59,11 @@ sources:
       - name: top20
         description: "One row per company, month and owner among the 20 largest: shares, total issued, % and the owner's kennitala. February 2022 onwards. Registered (direct) holdings only – beneficial owners behind custody accounts and fund holdings aren't visible."
 
+  - name: bank_shareholders
+    description: Owners above 1 % that Íslandsbanki and Arion banki publish on their websites (Act 161/2002, art. 19), snapshotted monthly by extract/bank_shareholders.py – the banks aren't in Nasdaq CSD's top-20 report.
+    meta:
+      external_location: "data/raw/bank_shareholders/{name}.parquet"
+    tables:
+      - name: owners
+        description: "One row per bank, snapshot and owner above 1 %: shares, % and kennitala where the bank links it. History starts September 2026."
+
